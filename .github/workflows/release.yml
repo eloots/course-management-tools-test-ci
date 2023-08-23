@@ -49,23 +49,23 @@ jobs:
       - name: Publish Local
         run: sbt publishLocal
 
-      #- name: Package Binaries
-        #run: |
-          #mkdir -p course-management-tools-bin/bin
-          #./coursier bootstrap com.lunatech:cmta_3:${{ env.RELEASE_VERSION }} -o course-management-tools-bin/bin/cmta --standalone --bat
-          #./coursier bootstrap com.lunatech:cmtc_3:${{ env.RELEASE_VERSION }} -o course-management-tools-bin/bin/cmtc --standalone --bat
-          #zip -r course-management-tools.zip course-management-tools-bin
+      - name: Package Binaries
+        run: |
+          mkdir -p course-management-tools-bin/bin
+          ./coursier bootstrap com.lunatech:cmta_3:${{ env.RELEASE_VERSION }} -o course-management-tools-bin/bin/cmta --standalone --bat
+          ./coursier bootstrap com.lunatech:cmtc_3:${{ env.RELEASE_VERSION }} -o course-management-tools-bin/bin/cmtc --standalone --bat
+          zip -r course-management-tools.zip course-management-tools-bin
 
-      #- name: Upload artefacts
-        ## id: upload-release-asset
-        #uses: actions/upload-release-asset@v1
-        #env:
-          #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        #with:
-          #upload_url: ${{ steps.create_release.outputs.upload_url }}
-          #asset_path: course-management-tools.zip
-          #asset_name: course-management-tools.zip
-          #asset_content_type: application/zip
+      - name: Upload artefacts
+        # id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: course-management-tools.zip
+          asset_name: course-management-tools.zip
+          asset_content_type: application/zip
 
       #- run: sbt ci-release
         #env:
